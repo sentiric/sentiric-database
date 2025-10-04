@@ -1,0 +1,30 @@
+# IDE ve Editör Özel Dosyaları
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# İşletim Sistemi Tarafından Oluşturulan Dosyalar
+.DS_Store
+Thumbs.db
+
+# Yerel Ortam Değişkenleri
+# Bu repoda normalde .env dosyası olmaz, ama önlem olarak ekleyelim.
+.env
+.env.*
+!.env.example
+
+# Veritabanı Bağlantı Bilgileri veya Dökümleri
+# Asla gerçek bağlantı bilgilerini veya veritabanı dökümlerini repoya eklemeyin!
+local_settings.py
+db_dump.sql
+*.bak
+
+# Potansiyel Python Araçları için Cache
+__pycache__/
+
+# Potansiyel Node.js Araçları için Bağımlılıklar
+node_modules/
+
+# Log Dosyaları
+*.log
