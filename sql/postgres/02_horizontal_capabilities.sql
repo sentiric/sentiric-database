@@ -1,5 +1,4 @@
--- 02_horizontal_capabilities.sql: Konfigürasyon, RAG, VCA ve Saga Kontrol Tabloları
--- (Veri Ayrıştırma Grubu: Yatay Konfigürasyon ve Kontrol - Sharding Olasılığı Düşük)
+-- 02_horizontal_capabilities.sql: Konfigürasyon, RAG, VCA ve Saga Kontrol Tabloları (AGENT SERVICE)
 
 -- === 8. YATAY KONFİGÜRASYON (Announcements ve Templates) ===
 CREATE TABLE IF NOT EXISTS announcements (
@@ -25,14 +24,14 @@ CREATE TABLE IF NOT EXISTS templates (
 CREATE TABLE IF NOT EXISTS datasources (
     id SERIAL PRIMARY KEY,
     tenant_id VARCHAR(255) NOT NULL REFERENCES tenants(id),
-    source_type VARCHAR(50) NOT NULL,
+    source_type VARCHAR(50) NOT NULL, -- 'postgres', 'web', 'file'
     source_uri TEXT NOT NULL,
     is_active BOOLEAN DEFAULT TRUE,
     last_indexed_at TIMESTAMPTZ,
     UNIQUE(tenant_id, source_uri)
 );
 
--- === 10. VCA (Value and Cost Analytics) - ADR-006 ===
+-- === 10. VCA (Value and Cost Analytics) - CDR Service tarafından beslenir ===
 CREATE TABLE IF NOT EXISTS cost_models (
     id VARCHAR(255) PRIMARY KEY,
     resource_type VARCHAR(50) NOT NULL, 
@@ -53,7 +52,7 @@ CREATE TABLE IF NOT EXISTS usage_records (
     recorded_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- === 11. SAGA (Dağıtık İşlem Yönetimi) - ADR-003 ===
+-- === 11. SAGA (Dağıtık İşlem Yönetimi) ===
 CREATE TABLE IF NOT EXISTS saga_transactions (
     saga_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     saga_name VARCHAR(255) NOT NULL,

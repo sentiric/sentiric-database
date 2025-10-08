@@ -1,9 +1,8 @@
--- 00_core_platform.sql: TEMEL VARLIKLAR ve KİMLİK YÖNETİMİ
--- (Veri Ayrıştırma Grubu: Yüksek Olasılıklı Ortak Şema - Sharding Olasılığı Düşük)
+-- 00_core_platform.sql: TEMEL VARLIKLAR ve KİMLİK YÖNETİMİ (USER SERVICE)
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- === 1. TENANT YÖNETİMİ (Çekirdek - Diğer tüm tablolara FK sağlar) ===
+-- === 1. TENANT YÖNETİMİ ===
 CREATE TABLE IF NOT EXISTS tenants (
     id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255) NOT NULL UNIQUE,
@@ -11,7 +10,7 @@ CREATE TABLE IF NOT EXISTS tenants (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- === 2. KULLANICI YÖNETİMİ (USER SERVICE) ===
+-- === 2. KULLANICI YÖNETİMİ ===
 CREATE TABLE IF NOT EXISTS users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(255),
@@ -21,7 +20,7 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- === 3. İLETİŞİM KANALLARI (USER SERVICE - OMNICHANNEL) ===
+-- === 3. İLETİŞİM KANALLARI (OMNICHANNEL) ===
 CREATE TABLE IF NOT EXISTS contacts (
     id SERIAL PRIMARY KEY,
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -32,7 +31,7 @@ CREATE TABLE IF NOT EXISTS contacts (
     UNIQUE(contact_type, contact_value) 
 );
 
--- === 4. SIP/VOIP KİMLİK BİLGİLERİ (REGISTRAR SERVICE VE USER SERVICE) ===
+-- === 4. SIP/VOIP KİMLİK BİLGİLERİ (REGISTRAR SERVICE) ===
 CREATE TABLE IF NOT EXISTS sip_credentials (
     user_id UUID PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
     sip_username VARCHAR(255) NOT NULL UNIQUE,

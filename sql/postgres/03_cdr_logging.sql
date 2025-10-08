@@ -1,5 +1,4 @@
--- 03_cdr_logging.sql: Çağrı Kayıtları ve Olaylar
--- (Veri Ayrıştırma Grubu: Audit ve Loglama - Yüksek Hacim)
+-- 03_cdr_logging.sql: Çağrı Kayıtları ve Olaylar (CDR SERVICE)
 
 CREATE TABLE IF NOT EXISTS calls (
     call_id VARCHAR(255) PRIMARY KEY,

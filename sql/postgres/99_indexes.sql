@@ -1,11 +1,14 @@
--- 99_indexes.sql: Performans için tüm indeksler (Tüm modüllerden toplanmıştır)
+-- 99_indexes.sql: Performans için tüm indeksler
 
 -- === CORE VARLIK İNDEKLERİ ===
 CREATE INDEX IF NOT EXISTS idx_users_tenant_id ON users(tenant_id);
 CREATE INDEX IF NOT EXISTS idx_contacts_value ON contacts(contact_value);
 CREATE INDEX IF NOT EXISTS idx_sip_credentials_username ON sip_credentials(sip_username);
+
+-- === TELEFONİ & ROUTING İNDEKLERİ ===
 CREATE INDEX IF NOT EXISTS idx_inbound_routes_tenant_id ON inbound_routes(tenant_id);
 CREATE INDEX IF NOT EXISTS idx_outbound_routes_tenant_id ON outbound_routes(tenant_id);
+-- Inbound route sorgularında telefon numarası PRIMARY KEY olduğu için ekstra indekse gerek yoktur.
 
 -- === HORIZONTAL CAPABILITY İNDEKLERİ ===
 CREATE INDEX IF NOT EXISTS idx_usage_records_call_id ON usage_records(call_id);

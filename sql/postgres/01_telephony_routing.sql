@@ -1,5 +1,4 @@
--- 01_telephony_routing.sql: SADECE AĞ VE PROTOKOL YÖNLENDİRME VERİLERİ
--- (Veri Ayrıştırma Grubu: Telefoni Control Plane - Sharding Olasılığı Düşük)
+-- 01_telephony_routing.sql: SADECE AĞ VE PROTOKOL YÖNLENDİRME VERİLERİ (DIALPLAN SERVICE)
 
 -- === 5. TELEFONİ SAĞLAYICILARI ===
 CREATE TABLE IF NOT EXISTS telephony_providers (
@@ -9,7 +8,7 @@ CREATE TABLE IF NOT EXISTS telephony_providers (
     software_info TEXT
 );
 
--- === 6. SIP TRUNKLARI (sip-signaling ve media-service tarafından kullanılır) ===
+-- === 6. SIP TRUNKLARI ===
 CREATE TABLE IF NOT EXISTS sip_trunks (
     id SERIAL PRIMARY KEY,
     provider_id INT NOT NULL REFERENCES telephony_providers(id),
@@ -26,7 +25,7 @@ CREATE TABLE IF NOT EXISTS sip_trunks (
     UNIQUE(provider_id, name)
 );
 
--- === 7. DIALPLAN VE INBOUND ROUTE KURALLARI (dialplan-service) ===
+-- === 7. DIALPLAN VE INBOUND ROUTE KURALLARI ===
 CREATE TABLE IF NOT EXISTS dialplans (
     id VARCHAR(255) PRIMARY KEY,
     tenant_id VARCHAR(255) NOT NULL REFERENCES tenants(id),
@@ -37,7 +36,8 @@ CREATE TABLE IF NOT EXISTS dialplans (
 
 CREATE TABLE IF NOT EXISTS inbound_routes (
     phone_number VARCHAR(255) PRIMARY KEY,
-    sip_trunk_id INT NOT NULL DEFAULT 1 REFERENCES sip_trunks(id),
+    -- sip_trunk_id'nin varsayılan değeri 1 olarak ayarlanmıştır (system trunk).
+    sip_trunk_id INT NOT NULL DEFAULT 1 REFERENCES sip_trunks(id), 
     tenant_id VARCHAR(255) NOT NULL REFERENCES tenants(id),
     default_language_code VARCHAR(10) NOT NULL DEFAULT 'tr',
     is_maintenance_mode BOOLEAN DEFAULT FALSE,

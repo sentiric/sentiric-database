@@ -1,9 +1,6 @@
--- 04_vertical_business_services.sql: Dikey İş Servisleri İçin Şema
--- (Veri Ayrıştırma Grubu: VBS İş Verisi - Tenant bazlı Sharding için ana aday)
+-- 04_vertical_business_services.sql: Dikey İş Servisleri İçin Şema (VBS)
 
--- Not: Tüm bu VBS tabloları, user/tenant tablolarına FK ile bağlanmalıdır.
-
--- === 1. HOSPITALITY SERVICE (K-7) ===
+-- === 1. HOSPITALITY SERVICE ===
 CREATE TABLE IF NOT EXISTS hospitality_reservations (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     tenant_id VARCHAR(255) NOT NULL REFERENCES tenants(id),
@@ -13,7 +10,7 @@ CREATE TABLE IF NOT EXISTS hospitality_reservations (
     is_paid BOOLEAN DEFAULT FALSE
 );
 
--- === 2. HEALTH SERVICE (K-7) ===
+-- === 2. HEALTH SERVICE ===
 CREATE TABLE IF NOT EXISTS health_services (
     id SERIAL PRIMARY KEY,
     tenant_id VARCHAR(255) NOT NULL REFERENCES tenants(id),
@@ -21,10 +18,8 @@ CREATE TABLE IF NOT EXISTS health_services (
     price NUMERIC(10, 2),
     requires_prepayment BOOLEAN DEFAULT FALSE
 );
--- Bu tablo genellikle RAG ve kural bazlı olduğu için tenant_id'ye gerek duymaz.
--- Ancak VBS tablosu olduğu için ekleyelim:
 
--- === 3. E-COMMERCE SERVICE (K-7) ===
+-- === 3. E-COMMERCE SERVICE ===
 CREATE TABLE IF NOT EXISTS ecommerce_orders (
     order_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     tenant_id VARCHAR(255) NOT NULL REFERENCES tenants(id),
@@ -32,7 +27,7 @@ CREATE TABLE IF NOT EXISTS ecommerce_orders (
     status VARCHAR(50)
 );
 
--- === 4. FINANCE SERVICE (K-7) ===
+-- === 4. FINANCE SERVICE ===
 CREATE TABLE IF NOT EXISTS finance_accounts (
     account_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     tenant_id VARCHAR(255) NOT NULL REFERENCES tenants(id),
@@ -40,7 +35,7 @@ CREATE TABLE IF NOT EXISTS finance_accounts (
     balance NUMERIC(10, 2)
 );
 
--- === 5. LEGAL SERVICE (K-7) ===
+-- === 5. LEGAL SERVICE ===
 CREATE TABLE IF NOT EXISTS legal_cases (
     case_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     tenant_id VARCHAR(255) NOT NULL REFERENCES tenants(id),
@@ -48,7 +43,7 @@ CREATE TABLE IF NOT EXISTS legal_cases (
     case_status VARCHAR(50)
 );
 
--- === 6. PUBLIC SERVICE (K-7) ===
+-- === 6. PUBLIC SERVICE ===
 CREATE TABLE IF NOT EXISTS public_applications (
     app_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     tenant_id VARCHAR(255) NOT NULL REFERENCES tenants(id),
@@ -56,7 +51,7 @@ CREATE TABLE IF NOT EXISTS public_applications (
     submission_date TIMESTAMPTZ DEFAULT NOW()
 );
 
--- === 7. INSURANCE SERVICE (YENİ EKLENEN VBS) ===
+-- === 7. INSURANCE SERVICE ===
 CREATE TABLE IF NOT EXISTS insurance_policies (
     policy_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     tenant_id VARCHAR(255) NOT NULL REFERENCES tenants(id),
