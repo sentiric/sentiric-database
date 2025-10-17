@@ -18,7 +18,8 @@ Bu depo, Sentiric platformu tarafından kullanılan tüm veritabanı şemaların
 | :--- | :--- | :--- |
 | `00_core_platform.sql` | `tenants`, `users`, `contacts`, `sip_credentials`. | `user-service`, `registrar-service` |
 | `01_telephony_routing.sql` | `dialplans`, `inbound_routes`, `sip_trunks`, `outbound_routes`. | `dialplan-service` |
-| `02_horizontal_capabilities.sql`| `announcements`, `templates`, `datasources`, `saga_transactions`. | `agent-service`, `knowledge-service` |
+| `02_horizontal_capabilities.sql`| `announcements`, `templates`, `cost_models`, `saga_transactions`. | `agent-service` |
 | `03_cdr_logging.sql` | `calls`, `call_events`. | `cdr-service` |
 | `04_vertical_business_services.sql` | Dikey Servislerin (Health, Finance, vb.) tabloları. | VBS Servisleri |
+| `05_rag_knowledge_base.sql` | `datasources` ve RAG ile ilgili diğer yapılar. | `knowledge-indexing-service` |
 | `99_indexes.sql` | Tüm tablo indeksleri. | Performans |

@@ -13,8 +13,10 @@ CREATE INDEX IF NOT EXISTS idx_outbound_routes_tenant_id ON outbound_routes(tena
 -- === HORIZONTAL CAPABILITY İNDEKLERİ ===
 CREATE INDEX IF NOT EXISTS idx_usage_records_call_id ON usage_records(call_id);
 CREATE INDEX IF NOT EXISTS idx_saga_transactions_status ON saga_transactions(status);
-CREATE INDEX IF NOT EXISTS idx_datasources_tenant_id ON datasources(tenant_id);
 CREATE INDEX IF NOT EXISTS idx_announcements_tenant_id ON announcements(tenant_id);
+
+-- === RAG İNDEKLERİ ===
+CREATE INDEX IF NOT EXISTS idx_datasources_tenant_id_active ON datasources(tenant_id, is_active);
 
 -- === CDR İNDEKLERİ ===
 CREATE INDEX IF NOT EXISTS idx_calls_user_id ON calls(user_id);
