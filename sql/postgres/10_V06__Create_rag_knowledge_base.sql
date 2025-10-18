@@ -11,15 +11,13 @@
 CREATE TABLE IF NOT EXISTS datasources (
     id SERIAL PRIMARY KEY,
     tenant_id VARCHAR(255) NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
-    source_type VARCHAR(50) NOT NULL, -- 'web', 'postgres', 'file' gibi
+    source_type VARCHAR(50) NOT NULL,
     source_uri TEXT NOT NULL,
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    last_indexed_at TIMESTAMPTZ,
-    last_status VARCHAR(50) DEFAULT 'pending', -- 'success', 'failed', 'in_progress'
-    
-    -- Her tenant için aynı URI'nin tekrar eklenmesini önler.
+    last_indexed_at TIMESTAMPTZ,    
+    last_status VARCHAR(50) DEFAULT 'pending',
     UNIQUE(tenant_id, source_uri)
 );
 
@@ -30,7 +28,7 @@ COMMENT ON COLUMN datasources.source_type IS 'Veri kaynağının türü (web, po
 COMMENT ON COLUMN datasources.source_uri IS 'Veri kaynağının konumu (URL, tablo adı, dosya yolu).';
 COMMENT ON COLUMN datasources.is_active IS 'Bu kaynağın indeksleme döngüsüne dahil edilip edilmeyeceği.';
 COMMENT ON COLUMN datasources.last_indexed_at IS 'Bu kaynağın en son ne zaman başarıyla indekslendiği.';
-COMMENT ON COLUMN datasources.last_status IS 'Son indeksleme işleminin durumu.';
+COMMENT ON COLUMN datasources.last_status IS 'Son indeksleme işleminin durumu. (pending, success, failed, in_progress)';
 
 -- updated_at sütununu otomatik güncelleyen trigger (Eğer henüz yoksa)
 DO $$
