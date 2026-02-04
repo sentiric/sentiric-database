@@ -1,0 +1,1 @@
+CREATE INDEX IF NOT EXISTS idx_datasources_tenant_id_active ON datasources(tenant_id, is_active);
