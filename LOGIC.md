@@ -1,6 +1,6 @@
 # 🧬 Veri Katmanı Mantığı: Dağıtık Veri Ağı
 
-**Mimari Karar:** Monolitik `sentiric_db` yapısı terk edilmiş, **Database-per-Service** modeline geçilmiştir.
+**Mimari Karar:** Monolitik `postgres` yapısı terk edilmiş, **Database-per-Service** modeline geçilmiştir.
 
 ## Veri Sahipliği Haritası
 
