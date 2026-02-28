@@ -16,3 +16,5 @@ SELECT 'CREATE DATABASE sentiric_vertical_legal' WHERE NOT EXISTS (SELECT FROM p
 SELECT 'CREATE DATABASE sentiric_vertical_ecommerce' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'sentiric_vertical_ecommerce')\gexec
 SELECT 'CREATE DATABASE sentiric_vertical_public' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'sentiric_vertical_public')\gexec
 SELECT 'CREATE DATABASE sentiric_vertical_insurance' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'sentiric_vertical_insurance')\gexec
+
+SELECT 'CREATE DATABASE sentiric_workflow' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'sentiric_workflow')\gexec
