@@ -1,5 +1,4 @@
-DROP TABLE IF EXISTS ecommerce_orders; -- Şema geliştirme aşamasında olduğumuz için Drop edip yeniden yaratıyoruz
-CREATE TABLE ecommerce_orders (
+CREATE TABLE IF NOT EXISTS ecommerce_orders (
     order_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     tenant_id VARCHAR(255) NOT NULL,
     customer_phone VARCHAR(50), -- Arayan numara ile siparişi eşleştirmek için
