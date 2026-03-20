@@ -18,3 +18,4 @@ SELECT 'CREATE DATABASE sentiric_vertical_public' WHERE NOT EXISTS (SELECT FROM 
 SELECT 'CREATE DATABASE sentiric_vertical_insurance' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'sentiric_vertical_insurance')\gexec
 
 SELECT 'CREATE DATABASE sentiric_workflow' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'sentiric_workflow')\gexec
+SELECT 'CREATE DATABASE sentiric_dialog' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'sentiric_dialog')\gexec
