@@ -1,0 +1,1 @@
+CREATE INDEX IF NOT EXISTS idx_announcements_tenant_id ON announcements(tenant_id);
